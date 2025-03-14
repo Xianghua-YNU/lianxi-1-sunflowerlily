@@ -1,7 +1,7 @@
 name: Autograding Tests
 'on':
-- push
-- repository_dispatch
+  - push
+  - repository_dispatch
 permissions:
   checks: write
   actions: read
@@ -13,13 +13,16 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-    - name: test_numpy_array_exercise.py
-      id: test_numpy_array_exercise-py
-      uses: classroom-resources/autograding-python-grader@v1
+    - name: Set up Python
+      uses: actions/setup-python@v3
       with:
-        timeout: 10
-        max-score: 25
-        setup-command: ''
+        python-version: '3.11'
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install numpy
+    - name: Run tests
+      run: python -m unittest discover
     - name: Autograding Reporter
       uses: classroom-resources/autograding-grading-reporter@v1
       env:
