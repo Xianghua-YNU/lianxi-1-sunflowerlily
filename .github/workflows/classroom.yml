@@ -1,8 +1,3 @@
-The error indicates that the `runners` input must be a comma-separated list of strings. It looks like the `runners` input in the `Autograding Reporter` step is not correctly formatted. 
-
-Here is the corrected workflow file:
-
-```yaml
 name: Autograding Tests
 'on':
   - push
@@ -34,6 +29,3 @@ jobs:
         TEST_NUMPY_ARRAY_EXERCISE-PY_RESULTS: "${{steps.test_numpy_array_exercise-py.outputs.result}}"
       with:
         runners: "test_numpy_array_exercise-py"
-```
-
-This should fix the error by ensuring the `runners` input is a correctly formatted string.
