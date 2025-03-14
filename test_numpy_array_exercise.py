@@ -1,5 +1,5 @@
 import unittest
-import numpy as np
+#import numpy as np
 from numpy_array_exercise import (
     find_power_with_six
 )
