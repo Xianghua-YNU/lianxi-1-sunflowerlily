@@ -18,14 +18,17 @@ def calculate_orbital_parameters():
     返回:
         dict: 一个字典，键为行星名称，值为一个包含轨道周期（年）和轨道速度（km/s）的元组。
     """
-    # TODO: 计算轨道周期（单位：s）
-    P = None
-    # TODO: 将轨道周期转换为年
-    P_yr = None
-    # TODO: 计算轨道速度（单位：m/s）
-    v = None
-    # TODO: 将轨道速度转换为 km/s
-    v_km_s = None
+    # 计算轨道周期（单位：s），使用开普勒第三定律 P = 2π√(a³/(G(M+m)))
+    P = 2 * np.pi * np.sqrt(a**3 / (G * (M + m)))
+    
+    # 将轨道周期转换为年
+    P_yr = P / year
+    
+    # 计算轨道速度（单位：m/s），使用公式 v = √(GM/a)
+    v = np.sqrt(G * M / a)
+    
+    # 将轨道速度转换为 km/s
+    v_km_s = v / 1000
 
     result = {}
     for i in range(len(planet_names)):
