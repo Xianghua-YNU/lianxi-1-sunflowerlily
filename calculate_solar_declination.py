@@ -10,8 +10,13 @@ def calculate_declination_loop(days):
     返回:
     list: 对应日期的太阳赤纬值（度）
     """
-    # TODO: 实现此函数
-    pass
+    declinations = []
+    for day in days:
+        # 修正公式中的计算步骤
+        declination = 23.44 * np.sin(np.radians((360/365.25) * (day - 81)))
+        declinations.append(declination)
+    
+    return declinations
 
 def calculate_declination_vector(days):
     """
@@ -23,8 +28,11 @@ def calculate_declination_vector(days):
     返回:
     numpy.ndarray: 对应日期的太阳赤纬值（度）
     """
-    # TODO: 实现此函数
-    pass
+    # 使用NumPy数组运算计算太阳赤纬
+    days_array = np.array(days)
+    declinations = 23.44 * np.sin(np.radians((360/365.25) * (days_array - 81)))
+    
+    return declinations
 
 def compare_solstices_equinoxes():
     """
@@ -37,8 +45,13 @@ def compare_solstices_equinoxes():
     # 特殊日期（距离1月1日的天数）
     special_days = [79, 172, 266, 356]  # 春分、夏至、秋分、冬至
     
-    # TODO: 实现此函数
-    pass
+    # 使用循环计算太阳赤纬
+    declinations_loop = calculate_declination_loop(special_days)
+    print("使用循环计算的太阳赤纬值:", declinations_loop)
+    
+    # 使用NumPy数组运算计算太阳赤纬
+    declinations_vector = calculate_declination_vector(special_days)
+    print("使用NumPy数组运算计算的太阳赤纬值:", declinations_vector)
 
 if __name__ == "__main__":
     compare_solstices_equinoxes()
