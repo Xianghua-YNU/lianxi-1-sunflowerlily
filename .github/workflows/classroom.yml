@@ -23,11 +23,11 @@ jobs:
     - name: Run tests and calculate score
       run: |
         pytest --junitxml=results.xml
-        python calculate_score.py
+        python calculate_score.py results.xml  # Provide the file name here
 
     - name: Save score
       id: save_score
-      run: echo "SCORE=$(python calculate_score.py)" >> $GITHUB_ENV
+      run: echo "SCORE=$(python calculate_score.py results.xml)" >> $GITHUB_ENV
 
     - name: Print score
       run: echo "The calculated score is ${{ env.SCORE }}"
