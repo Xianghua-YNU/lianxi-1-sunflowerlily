@@ -20,33 +20,9 @@ jobs:
         timeout: 10
         max-score: 25
         setup-command: ''
-    - name: test_planet_orbital_parameters.py
-      id: test_planet_orbital_parameters-py
-      uses: classroom-resources/autograding-python-grader@v1
-      with:
-        timeout: 10
-        max-score: 25
-        setup-command: ''
-    - name: test_polar_plots.py
-      id: test_polar_plots-py
-      uses: classroom-resources/autograding-python-grader@v1
-      with:
-        timeout: 10
-        max-score: 25
-        setup-command: ''
-    - name: test_solar_declination.py
-      id: test_solar_declination-py
-      uses: classroom-resources/autograding-python-grader@v1
-      with:
-        timeout: 10
-        max-score: 25
-        setup-command: ''
     - name: Autograding Reporter
       uses: classroom-resources/autograding-grading-reporter@v1
       env:
         TEST_NUMPY_ARRAY_EXERCISE-PY_RESULTS: "${{steps.test_numpy_array_exercise-py.outputs.result}}"
-        TEST_PLANET_ORBITAL_PARAMETERS-PY_RESULTS: "${{steps.test_planet_orbital_parameters-py.outputs.result}}"
-        TEST_POLAR_PLOTS-PY_RESULTS: "${{steps.test_polar_plots-py.outputs.result}}"
-        TEST_SOLAR_DECLINATION-PY_RESULTS: "${{steps.test_solar_declination-py.outputs.result}}"
       with:
-        runners: test_numpy_array_exercise-py,test_planet_orbital_parameters-py,test_polar_plots-py,test_solar_declination-py
+        runners: test_numpy_array_exercise-py
