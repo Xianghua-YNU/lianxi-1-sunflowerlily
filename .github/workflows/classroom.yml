@@ -28,4 +28,4 @@ jobs:
       env:
         TEST_NUMPY_ARRAY_EXERCISE-PY_RESULTS: "${{steps.test_numpy_array_exercise-py.outputs.result}}"
       with:
-        runners: test_numpy_array_exercise-py
+        runners: test_numpy_array_exercise-py,
