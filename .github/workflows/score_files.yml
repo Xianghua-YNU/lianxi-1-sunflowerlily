@@ -1,0 +1,44 @@
+name: Score Python Files
+
+on:
+  pull_request:
+    branches:
+      - main  # 或者你想要监控的其他分支
+
+jobs:
+  score-files:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'  # 使用你需要的 Python 版本
+
+    - name: Install dependencies
+      run: pip install -r requirements.txt  # 如果有需要的依赖文件
+
+    - name: Run score script
+      id: score
+      run: |
+        scores=""
+        for file in $(git diff --name-only HEAD^ HEAD | grep '\.py$'); do
+          score=$(python calculate_score.py $file)
+          scores="$scores\n$file: $score"
+        done
+        echo "SCORES=$scores" >> $GITHUB_ENV
+
+    - name: Comment on pull request
+      uses: actions/github-script@v5
+      with:
+        script: |
+          const scores = process.env.SCORES;
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: `### Scores for submitted Python files:\n${scores}`
+          })
